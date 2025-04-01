@@ -1,0 +1,45 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #fefefe;
+    padding: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 5 columns */
+    gap: 7px;
+    width: 75%;
+    margin: 0 auto;
+  }
+  
+  .person img {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+  
+  .person img:hover {
+    filter: brightness(0.8);
+  }
+
+  /* Add these new styles */
+  .selected-person img {
+    border: 3px solid #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+  }
+
+  .eliminated img {
+    filter: blur(5px) grayscale(100%);
+  }
+
+  .selection-message {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+  }
