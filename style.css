@@ -21,10 +21,9 @@ body {
   }
   
   .person img:hover {
-    filter: brightness(0.8);
+    filter: brightness(0.7);
   }
-
-  /* Add these new styles */
+  
   .selected-person img {
     border: 3px solid #4CAF50;
     box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);

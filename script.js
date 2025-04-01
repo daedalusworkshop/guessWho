@@ -14,7 +14,7 @@ function initializeGame() {
                 const message = document.createElement('div');
                 message.className = 'selection-message';
                 message.textContent = 'Your secret person is selected! Keep it hidden from your opponent.';
-                document.querySelector('h1').insertAdjacentElement('afterend', message);
+                document.querySelector('h1').after(message);
             } else if (person !== selectedPerson) {
                 // If not the selected person, toggle the blur effect
                 person.classList.toggle('eliminated');
