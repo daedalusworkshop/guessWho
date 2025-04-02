@@ -1,5 +1,7 @@
 let selectedPerson = null;
 let currentSeed = Math.floor(Math.random() * 10000); // Default random seed between 0-9999
+// Configure the default number of cards to display on desktop/large screens
+const DEFAULT_CARD_COUNT = 30;
 
 function handlePersonClick(event) {
     // Get the person element (could be the image or username div, but we want the parent .person div)
@@ -97,11 +99,11 @@ function renderPeopleGrid(imageArray) {
     const peopleContainer = document.getElementById('people-container');
     
     // Determine how many cards to show based on screen width and height
-    let numberOfCards = 30; // Default: 5 rows of 4 cards
+    let numberOfCards = DEFAULT_CARD_COUNT; // Default from the configurable constant
     
     // Optimized for different screen sizes
     if (window.innerWidth >= 1400) {
-        numberOfCards = 20; // 4 rows of 5 cards for very wide screens
+        numberOfCards = DEFAULT_CARD_COUNT; // Use the configurable constant for large screens too
     } else if (window.innerWidth <= 576) {
         // Mobile optimization - check if we need to show fewer cards
         if (window.innerHeight <= 700) {
