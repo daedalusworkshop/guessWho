@@ -5,19 +5,51 @@ body {
     padding: 20px;
   }
   
-  .grid {
+  #people-container {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 5 columns */
-    gap: 7px;
-    width: 75%;
-    margin: 0 auto;
+    grid-template-columns: repeat(6, 1fr); /* 6 columns, adjust as needed */
+    gap: 7px; /* Adjust gap as needed */
+    width: 85%; /* Adjust width as needed */
+    margin: 20px auto; /* Add some margin for spacing */
+  }
+  
+  #people-container p { /* Style for the initial "Loading..." message */
+    grid-column: 1 / -1; /* Make it span all columns if needed */
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .person {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .person::after {
+    content: attr(data-username);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  
+  .person:hover::after {
+    opacity: 1;
   }
   
   .person img {
     width: 100%;
+    display: block; /* Prevents small gaps below images */
     border-radius: 10px;
     cursor: pointer;
-    transition: filter 0.2s;
+    transition: filter 0.2s, border 0.2s, box-shadow 0.2s; /* Added border/shadow transitions */
   }
   
   .person img:hover {
