@@ -1,7 +1,7 @@
 let selectedPerson = null;
 let currentSeed = Math.floor(Math.random() * 10000); // Default random seed between 0-9999
-// Configure the default number of cards to display on desktop/large screens
-const DEFAULT_CARD_COUNT = 30;
+// Configure the default number of cards to display - fixed at 20 for cross-platform consistency
+const DEFAULT_CARD_COUNT = 20; // Fixed at 20 cards for all platforms
 
 function handlePersonClick(event) {
     // Get the person element (could be the image or username div, but we want the parent .person div)
@@ -98,16 +98,8 @@ function shuffleArrayWithSeed(array, seed) {
 function renderPeopleGrid(imageArray) {
     const peopleContainer = document.getElementById('people-container');
     
-    // Always use DEFAULT_CARD_COUNT as the base number of cards
-    let numberOfCards = DEFAULT_CARD_COUNT;
-    
-    // Only reduce the number of cards for very small screens where usability would be impacted
-    if (window.innerWidth <= 576) {
-        // Mobile optimization - check if we need to show fewer cards
-        if (window.innerHeight <= 700) {
-            numberOfCards = Math.min(DEFAULT_CARD_COUNT, 20); // Small mobile screens but preserve more cards
-        }
-    }
+    // Always use exactly 20 cards for all platforms
+    const numberOfCards = DEFAULT_CARD_COUNT; // Fixed at 20 for cross-platform consistency
     
     // Only use the required number of images
     const limitedArray = imageArray.slice(0, numberOfCards);
