@@ -97,7 +97,7 @@ function renderPeopleGrid(imageArray) {
     const peopleContainer = document.getElementById('people-container');
     
     // Determine how many cards to show based on screen width and height
-    let numberOfCards = 20; // Default: 5 rows of 4 cards
+    let numberOfCards = 30; // Default: 5 rows of 4 cards
     
     // Optimized for different screen sizes
     if (window.innerWidth >= 1400) {
