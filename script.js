@@ -98,21 +98,15 @@ function shuffleArrayWithSeed(array, seed) {
 function renderPeopleGrid(imageArray) {
     const peopleContainer = document.getElementById('people-container');
     
-    // Determine how many cards to show based on screen width and height
-    let numberOfCards = DEFAULT_CARD_COUNT; // Default from the configurable constant
+    // Always use DEFAULT_CARD_COUNT as the base number of cards
+    let numberOfCards = DEFAULT_CARD_COUNT;
     
-    // Optimized for different screen sizes
-    if (window.innerWidth >= 1400) {
-        numberOfCards = DEFAULT_CARD_COUNT; // Use the configurable constant for large screens too
-    } else if (window.innerWidth <= 576) {
+    // Only reduce the number of cards for very small screens where usability would be impacted
+    if (window.innerWidth <= 576) {
         // Mobile optimization - check if we need to show fewer cards
         if (window.innerHeight <= 700) {
-            numberOfCards = 12; // 6 rows of 2 cards for small mobile screens
-        } else {
-            numberOfCards = 16; // 8 rows of 2 cards for mobile screens
+            numberOfCards = Math.min(DEFAULT_CARD_COUNT, 20); // Small mobile screens but preserve more cards
         }
-    } else if (window.innerWidth <= 768) {
-        numberOfCards = 18; // 6 rows of 3 cards for tablets
     }
     
     // Only use the required number of images
