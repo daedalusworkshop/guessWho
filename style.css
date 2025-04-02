@@ -1,76 +1,223 @@
 body {
-    font-family: sans-serif;
-    text-align: center;
-    background-color: #fefefe;
-    padding: 20px;
-  }
-  
+  font-family: Georgia, serif;
+  text-align: center;
+  background-color: #fdf6f0;
+  padding: 10px 20px 30px;
+  margin: 0;
+  min-height: 100vh;
+  color: #3c2f2f;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #3c2f2f;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#people-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns as requested */
+  gap: 15px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  flex: 1;
+}
+
+/* Responsive grid adjustments */
+@media (min-width: 1400px) {
   #people-container {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 columns, adjust as needed */
-    gap: 7px; /* Adjust gap as needed */
-    width: 85%; /* Adjust width as needed */
-    margin: 20px auto; /* Add some margin for spacing */
+    grid-template-columns: repeat(5, 1fr); /* 5 columns for very wide screens */
+    max-width: 1500px;
   }
-  
-  #people-container p { /* Style for the initial "Loading..." message */
-    grid-column: 1 / -1; /* Make it span all columns if needed */
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .person {
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .person::after {
-    content: attr(data-username);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px;
-    font-size: 14px;
-    opacity: 0;
-    transition: opacity 0.2s;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-  
-  .person:hover::after {
-    opacity: 1;
-  }
-  
-  .person img {
-    width: 100%;
-    display: block; /* Prevents small gaps below images */
-    border-radius: 10px;
-    cursor: pointer;
-    transition: filter 0.2s, border 0.2s, box-shadow 0.2s; /* Added border/shadow transitions */
-  }
-  
-  .person img:hover {
-    filter: brightness(0.7);
-  }
-  
-  .selected-person img {
-    border: 3px solid #4CAF50;
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-  }
+}
 
-  .eliminated img {
-    filter: blur(5px) grayscale(100%);
+@media (max-width: 992px) {
+  #people-container {
+    width: 95%;
+    gap: 12px;
   }
+}
 
-  .selection-message {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    margin: 10px auto;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 600px;
+@media (max-width: 768px) {
+  #people-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
   }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #people-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+    gap: 10px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  #shuffle-button {
+    padding: 10px 22px;
+    font-size: 16px;
+  }
+}
+
+#people-container p {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  color: #944f3d;
+}
+
+.person {
+  position: relative;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #e7b9a7;
+  background-color: #ffe9d6;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  aspect-ratio: 0.85;
+  display: flex;
+  flex-direction: column;
+}
+
+.person:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(233, 162, 125, 0.2);
+}
+
+.person-image {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 8px 0 8px;
+}
+
+.person-username {
+  padding: 8px;
+  font-family: 'Comic Neue', 'Patrick Hand', cursive, sans-serif;
+  color: #944f3d;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: #e7b9a7;
+  border-radius: 0 0 8px 8px;
+  margin-top: auto;
+}
+
+.person img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  transition: filter 0.3s;
+}
+
+.person img:hover {
+  filter: brightness(0.9);
+}
+
+.selected-person {
+  border: 3px solid #b76e79;
+  box-shadow: 0 0 12px rgba(183, 110, 121, 0.5);
+}
+
+.selected-person .person-username {
+  background-color: #b76e79;
+  color: #fff;
+}
+
+.eliminated {
+  opacity: 0.85;
+  position: relative;
+}
+
+.eliminated::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cline x1='5' y1='5' x2='75' y2='75' stroke='%23e7b9a7' stroke-width='6' stroke-linecap='round'/%3E%3Cline x1='75' y1='5' x2='5' y2='75' stroke='%23e7b9a7' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") center no-repeat;
+  background-size: 60%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.eliminated img {
+  filter: blur(2px) sepia(0.3) grayscale(30%);
+}
+
+.eliminated .person-username {
+  background-color: #d6c4b8;
+  color: #857770;
+}
+
+.selection-message {
+  background-color: #e9a27d;
+  color: #3c2f2f;
+  padding: 12px;
+  margin: 20px auto;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 600px;
+  font-family: Georgia, serif;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#message-container {
+  min-height: 40px;
+}
+
+#controls-container {
+  margin: 15px auto 25px auto;
+  width: 90%;
+  text-align: center;
+}
+
+#shuffle-button {
+  background-color: #e9a27d;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: Georgia, serif;
+  transition: all 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#shuffle-button:hover {
+  background-color: #d8916c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Add a subtle paper texture via CSS */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23a89e91' fill-opacity='0.05' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: -1;
+}
