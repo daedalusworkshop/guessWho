@@ -2,7 +2,7 @@ body {
   font-family: Georgia, serif;
   text-align: center;
   background-color: #fdf6f0;
-  padding: 10px 20px 30px;
+  padding: 10px 15px 20px;
   margin: 0;
   min-height: 100vh;
   color: #3c2f2f;
@@ -44,32 +44,60 @@ h1 {
     width: 95%;
     gap: 12px;
   }
+  
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+  }
 }
 
 @media (max-width: 768px) {
-  #people-container {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
+  body {
+    padding: 8px 12px 15px;
   }
   
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  
+  #people-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
+    gap: 10px;
+    padding-bottom: 10px;
   }
 }
 
 @media (max-width: 576px) {
-  #people-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
-    gap: 10px;
+  body {
+    padding: 5px 10px 10px;
   }
   
   h1 {
     font-size: 2rem;
-    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+  }
+  
+  #people-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+    gap: 8px;
+    width: 98%;
   }
   
   #shuffle-button {
-    padding: 10px 22px;
+    padding: 8px 18px;
     font-size: 16px;
+  }
+  
+  #message-container {
+    min-height: 0;
+  }
+  
+  .selection-message {
+    margin: 8px auto;
+    padding: 8px;
   }
 }
 
@@ -123,13 +151,50 @@ h1 {
 
 @media (max-width: 768px) {
   .person-image {
-    min-height: 150px;
+    min-height: 140px;
+    margin: 6px 6px 0 6px;
+    width: calc(100% - 12px);
+  }
+  
+  .person {
+    border-width: 1px;
+  }
+  
+  .person-username {
+    padding: 5px;
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 576px) {
   .person-image {
-    min-height: 140px;
+    min-height: 130px;
+    margin: 5px 5px 0 5px;
+    width: calc(100% - 10px);
+  }
+}
+
+/* Special optimization for smaller phones */
+@media (max-height: 700px) and (max-width: 576px) {
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+  }
+  
+  .person-image {
+    min-height: 110px;
+  }
+  
+  .seed-container {
+    margin: 5px auto;
+  }
+  
+  .seed-info p {
+    margin: 5px 0;
+  }
+  
+  #controls-container {
+    margin: 8px auto 12px auto;
   }
 }
 

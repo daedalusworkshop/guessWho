@@ -96,13 +96,21 @@ function shuffleArrayWithSeed(array, seed) {
 function renderPeopleGrid(imageArray) {
     const peopleContainer = document.getElementById('people-container');
     
-    // Determine how many cards to show based on screen width
+    // Determine how many cards to show based on screen width and height
     let numberOfCards = 20; // Default: 5 rows of 4 cards
     
+    // Optimized for different screen sizes
     if (window.innerWidth >= 1400) {
-        numberOfCards = 20; // 4 rows of 5 cards for large screens
+        numberOfCards = 20; // 4 rows of 5 cards for very wide screens
     } else if (window.innerWidth <= 576) {
-        numberOfCards = 16; // 8 rows of 2 cards for mobile
+        // Mobile optimization - check if we need to show fewer cards
+        if (window.innerHeight <= 700) {
+            numberOfCards = 12; // 6 rows of 2 cards for small mobile screens
+        } else {
+            numberOfCards = 16; // 8 rows of 2 cards for mobile screens
+        }
+    } else if (window.innerWidth <= 768) {
+        numberOfCards = 18; // 6 rows of 3 cards for tablets
     }
     
     // Only use the required number of images
@@ -164,14 +172,17 @@ function createControls() {
     controlsContainer.id = 'controls-container';
     
     // Create the seed input and shuffle button
+    // Mobile optimization: simplify the label for smaller screens
+    const isMobile = window.innerWidth <= 576;
+    
     controlsContainer.innerHTML = `
         <div class="seed-container">
-            <label for="seed-input">Shuffle Seed:</label>
-            <input type="number" id="seed-input" min="0" max="9999" value="${currentSeed}" placeholder="Enter seed (0-9999)">
+            <label for="seed-input">${isMobile ? 'Seed:' : 'Shuffle Seed:'}</label>
+            <input type="number" id="seed-input" min="0" max="9999" value="${currentSeed}" placeholder="${isMobile ? 'Seed #' : 'Enter seed (0-9999)'}">
             <button id="shuffle-button">Shuffle Grid</button>
         </div>
         <div class="seed-info">
-            <p>Share this seed number with friends to get the same grid layout!</p>
+            <p>${isMobile ? 'Share this seed for the same layout!' : 'Share this seed number with friends to get the same grid layout!'}</p>
         </div>
     `;
     
@@ -183,7 +194,7 @@ function createControls() {
     document.getElementById('shuffle-button').addEventListener('click', handleShuffleClick);
 }
 
-// Add styles for the seed controls
+// Add styles for the seed controls with better mobile support
 const style = document.createElement('style');
 style.textContent = `
     .seed-container {
@@ -228,7 +239,30 @@ style.textContent = `
     
     @media (max-width: 576px) {
         .seed-container {
-            flex-direction: column;
+            flex-direction: row;
+            margin: 10px auto;
+            gap: 5px;
+        }
+        
+        #seed-input {
+            width: 80px;
+            padding: 6px 8px;
+            font-size: 0.9rem;
+        }
+        
+        .seed-info {
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+        
+        .seed-info p {
+            margin: 3px 0;
+        }
+    }
+    
+    @media (max-height: 700px) and (max-width: 576px) {
+        .seed-container {
+            margin: 5px auto;
         }
     }
 `;
